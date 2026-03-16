@@ -1,1 +1,15 @@
 This project scrapes forum/listing content from target automotive discussion pages for thesis research. It uses Selenium to load pages, extracts structured post and comment data, normalizes records, and writes the results to local output files such as CSV. The codebase is organized so scraping, parsing, and output concerns remain separate.
+
+```
+
+CLI
+  -> Config / arguments
+  -> Selenium browser session
+  -> Page navigation
+  -> HTML extraction
+  -> Parser / extractor
+  -> Normalized records
+  -> CSV / output files
+  -> Logs / metadata
+
+```
