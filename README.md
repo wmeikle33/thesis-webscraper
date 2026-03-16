@@ -79,14 +79,22 @@ scraped_at (string)
 
 The project is organized into the following directories:
 
-```bash
+## Repository structure
+
+```text
 .
-├── src/            # Source code for the application
-├── docs/           # Project documentation and guides
-├── tests/           # Automated tests (unit, integration)
-├── build/          # Compiled output files (usually excluded from git)
-├── .github/        # GitHub specific configurations (workflows, templates)
-├── LICENSE         # Project license file
-└── README.md       # The main information file (this file)
+├── .github/workflows/   # CI configuration
+├── data/                # Output data and sample artifacts
+├── docs/                # Additional project documentation
+├── src/                 # Python package source code
+├── tests/               # Automated tests and fixtures
+├── Changelog.md
+├── LICENSE
+├── MIGRATING.md
+├── README.md
+├── USAGE.md
+└── pyproject.toml
+
+```
 ```
 
