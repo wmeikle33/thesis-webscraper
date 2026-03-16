@@ -3,6 +3,20 @@
 
 This project scrapes discussion data from Autohome for thesis research. It uses Selenium to load target pages, extracts structured post and comment text, normalizes the data into tabular form, and writes the results to local files for downstream analysis. The repository is organized as a small Python package with a CLI, tests, and documentation.
 
+## How it works
+
+1. **List page parsing**  
+   The scraper opens forum or listing pages and collects candidate post URLs.
+
+2. **Detail page parsing**  
+   Each post page is loaded in Selenium, and the scraper extracts post-level fields and any visible comments.
+
+3. **Deduplication and normalization**  
+   Records are normalized into a stable schema, keyed by post and comment identifiers to reduce duplicate rows.
+
+4. **Output writing**  
+   Structured records are written to CSV, and run metadata is saved for traceability and reproducibility.
+
 # Quickstart
 
 ### Prerequisites
