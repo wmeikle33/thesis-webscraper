@@ -40,13 +40,11 @@ def run(
 
     result = scrape(cfg)
 
-    # Print a human-friendly summary
     print("[bold green]Done![/bold green]")
     print(f"Posts: {result.posts_count}")
     print(f"Comments: {result.comments_count}")
     print(f"Output: {out_dir.resolve()}")
 
-    # Optional: always write a machine-readable summary
     (out_dir / "run_summary.json").write_text(json.dumps(result.to_dict(), indent=2), encoding="utf-8")
 
 
