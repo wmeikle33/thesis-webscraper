@@ -50,9 +50,9 @@ def run(
     print("[bold green]Done![/bold green]")
     print(f"Posts: {result.posts_count}")
     print(f"Comments: {result.comments_count}")
-    print(f"Output: {out.resolve()}")
+    print(f"Output: {out_dir.resolve()}")
 
-    summary_path = out.parent / "run_summary.json"
+    summary_path = out_dir.parent / "run_summary.json"
     summary_path.write_text(json.dumps(result.to_dict(), indent=2), encoding="utf-8")
 
 
