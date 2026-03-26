@@ -27,6 +27,11 @@ class ThesisWebscraper:
         driver = webdriver.Chrome(options=opts)
         return driver
 
+    def _build_page_url(self, base_url: str, page: int) -> str:
+        if page == 1:
+            return base_url
+        return f"{base_url}?page={page}"
+
     def collect_thread_urls(self, start_url: str, max_pages: int) -> list[str]:
         thread_urls = []
     
