@@ -1,6 +1,6 @@
 
 from .models import ScrapeResult
-from .parser import parse_list, parse_post
+from .parser import parse_post
 
 __version__ = "0.1.0"
 
