@@ -1,66 +1,54 @@
+# src/thesis_webscraper/cli.py
 from __future__ import annotations
 
-from pathlib import Path
 import json
+from pathlib import Path
+
 import typer
 from rich import print
-from rich.console import Console
-
-from thesis_webscraper.scraper import scrape
 from thesis_webscraper.config import ScrapeConfig
+from thesis_webscraper.scraper import scrape
 
 app = typer.Typer(add_completion=False, help="Thesis Webscraper CLI")
-console = Console()
+
 
 @app.command()
 def run(
-    config: Path = typer.Option(..., "--config", "-c", exists=True, readable=True, help="Path to config JSON/YAML"),
-    out_dir: Path = typer.Option(Path("data"), "--out-dir", "-o", help="Output directory"),
+    start_url: str = typer.Option(..., "--start-url", help="Listing page URL to begin crawling"),
+    pages: int = typer.Option(1, "--pages", min=1, help="Number of list pages to crawl"),
+    out: Path = typer.Option(Path("data/posts.csv"), "--out", help="Output file path"),
     headless: bool = typer.Option(True, "--headless/--no-headless", help="Run browser headless"),
-    max_pages: int = typer.Option(0, "--max-pages", help="0 means no limit"),
-    delay_min: float = typer.Option(1.0, "--delay-min", help="Min delay between actions (seconds)"),
-    delay_max: float = typer.Option(3.0, "--delay-max", help="Max delay between actions (seconds)"),
-    resume: bool = typer.Option(True, "--resume/--no-resume", help="Resume from checkpoint if present"),
+    browser: str = typer.Option("chrome", "--browser", help="chrome, edge, or firefox"),
+    delay_ms: int = typer.Option(1200, "--delay-ms", min=0, help="Base delay between requests in ms"),
+    jitter: float = typer.Option(0.4, "--jitter", min=0.0, help="Random jitter multiplier"),
+    max_retries: int = typer.Option(2, "--max-retries", min=0, help="Retries for transient failures"),
+    save_raw_html: bool = typer.Option(False, "--save-raw-html/--no-save-raw-html", help="Save raw HTML"),
+    resume: bool = typer.Option(False, "--resume/--no-resume", help="Resume from prior checkpoint"),
     verbose: bool = typer.Option(False, "--verbose", "-v", help="Verbose logging"),
 ):
-    """
-    Run the scraper using a config file and write outputs to out_dir.
-    Produces posts.csv, comments.csv, run_metadata.json (and optionally checkpoints).
-    """
-    out_dir.mkdir(parents=True, exist_ok=True)
-
-    cfg = ScrapeConfig.from_file(config)
-    cfg.headless = headless
-    cfg.max_pages = max_pages or None
-    cfg.delay_min = delay_min
-    cfg.delay_max = delay_max
-    cfg.resume = resume
-    cfg.verbose = verbose
-    cfg.out_dir = out_dir
+    cfg = ScrapeConfig(
+        start_url=start_url,
+        pages=pages,
+        out=out,
+        headless=headless,
+        browser=browser,
+        delay_ms=delay_ms,
+        jitter=jitter,
+        max_retries=max_retries,
+        save_raw_html=save_raw_html,
+        resume=resume,
+        verbose=verbose,
+    )
 
     result = scrape(cfg)
 
     print("[bold green]Done![/bold green]")
     print(f"Posts: {result.posts_count}")
     print(f"Comments: {result.comments_count}")
-    print(f"Output: {out_dir.resolve()}")
+    print(f"Output: {out.resolve()}")
 
-    (out_dir / "run_summary.json").write_text(json.dumps(result.to_dict(), indent=2), encoding="utf-8")
-
-
-@app.command()
-def validate(
-    config: Path = typer.Option(..., "--config", "-c", exists=True, readable=True),
-):
-    """Validate config and environment (drivers, credentials presence, etc.)."""
-    cfg = ScrapeConfig.from_file(config)
-    problems = cfg.validate_environment()
-    if problems:
-        print("[bold red]Validation failed:[/bold red]")
-        for p in problems:
-            print(f"- {p}")
-        raise typer.Exit(code=2)
-    print("[bold green]Validation OK[/bold green]")
+    summary_path = out.parent / "run_summary.json"
+    summary_path.write_text(json.dumps(result.to_dict(), indent=2), encoding="utf-8")
 
 
 def main():
