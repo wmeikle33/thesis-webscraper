@@ -37,6 +37,21 @@ thesis-webscraper --help
 
 ```
 
+```bash
+
+thesis-webscraper run \
+  --section used-cars \
+  --pages 10 \
+  --out-dir data \
+  --headless \
+  --delay-ms 1200 \
+  --jitter 0.4 \
+  --max-retries 2 \
+  --resume \
+  --verbose
+
+```
+
 ## What it outputs
 
 After a successful run, the scraper writes data to:
