@@ -1,33 +1,44 @@
+# src/thesis_webscraper/config.py
 from __future__ import annotations
+
 from dataclasses import dataclass
 from pathlib import Path
-import json
-import os
-from typing import Any
+
 
 @dataclass
 class ScrapeConfig:
-    base_url: str
-    username_env: str = "SCRAPER_USERNAME"
-    password_env: str = "SCRAPER_PASSWORD"
+    start_url: str
+    pages: int = 1
+    out: Path = Path("data/posts.csv")
     headless: bool = True
-    max_pages: int | None = None
-    delay_min: float = 1.0
-    delay_max: float = 3.0
-    resume: bool = True
+    browser: str = "chrome"
+    delay_ms: int = 1200
+    jitter: float = 0.4
+    max_retries: int = 2
+    save_raw_html: bool = False
+    resume: bool = False
     verbose: bool = False
-    out_dir: Path = Path("data")
 
-    @staticmethod
-    def from_file(path: Path) -> "ScrapeConfig":
-        data = json.loads(path.read_text(encoding="utf-8"))
-        return ScrapeConfig(**data)
+    @property
+    def delay_min_s(self) -> float:
+        base = self.delay_ms / 1000.0
+        return max(0.0, base * (1.0 - self.jitter))
 
-    def validate_environment(self) -> list[str]:
+    @property
+    def delay_max_s(self) -> float:
+        base = self.delay_ms / 1000.0
+        return base * (1.0 + self.jitter)
+
+    def validate(self) -> list[str]:
         problems: list[str] = []
-        if not os.getenv(self.username_env):
-            problems.append(f"Missing env var: {self.username_env}")
-        if not os.getenv(self.password_env):
-            problems.append(f"Missing env var: {self.password_env}")
-        # Add checks like chrome/driver presence if you can detect them safely.
-        return problems
+
+        if not self.start_url:
+            problems.append("start_url is required")
+        if self.pages < 1:
+            problems.append("pages must be >= 1")
+        if self.browser not in {"chrome", "edge", "firefox"}:
+            problems.append("browser must be one of: chrome, edge, firefox")
+        if self.delay_ms < 0:
+            problems.append("delay_ms must be >= 0")
+        if self.jitter < 0:
+            problems.append("jitter must be >= 0")
