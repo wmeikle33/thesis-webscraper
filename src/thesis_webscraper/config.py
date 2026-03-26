@@ -33,6 +33,11 @@ class ScrapeConfig:
         base = self.delay_ms / 1000.0
         return base * (1.0 + self.jitter)
 
+    @app.command("sections")
+    def sections():
+        for name in SECTION_URLS:
+            print(name)
+
     def validate(self) -> list[str]:
         errors = []
         if self.section not in SECTION_URLS:
