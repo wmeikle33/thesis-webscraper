@@ -1,4 +1,4 @@
-from src.thesis_webscraper.parser import parse_list
+from thesis_webscraper.parser import parse_list
 
 def test_parse_list_basic(read_html):
     html = read_html("list_page.html")
