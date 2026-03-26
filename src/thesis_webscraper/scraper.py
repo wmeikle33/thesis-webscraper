@@ -7,7 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from .config import ScrapeConfig
-from .list_crawler import parse_post
+from .parser import parse_post
 from .models import ScrapeResult
 
 
