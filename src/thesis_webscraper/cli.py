@@ -23,7 +23,7 @@ def sections():
 def run(
     section: str = typer.Option(..., "--section", help="Autohome section to scrape"),
     pages: int = typer.Option(1, "--pages", min=1, help="Number of list pages to crawl"),
-    out: Path = typer.Option(Path("data/posts.csv"), "--out", help="Output file path"),
+    out_dir: Path = typer.Option(Path("data/posts.csv"), "--out-dir", help="Output file path"),
     headless: bool = typer.Option(True, "--headless/--no-headless", help="Run browser headless"),
     browser: str = typer.Option("chrome", "--browser", help="chrome, edge, or firefox"),
     delay_ms: int = typer.Option(1200, "--delay-ms", min=0, help="Base delay between requests in ms"),
@@ -36,7 +36,7 @@ def run(
     cfg = ScrapeConfig(
         section=section,
         pages=pages,
-        out=out,
+        out_dir=out_dir,
         headless=headless,
         browser=browser,
         delay_ms=delay_ms,
