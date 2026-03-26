@@ -14,6 +14,10 @@ from thesis_webscraper.scraper import scrape
 
 app = typer.Typer(add_completion=False, help="Thesis Webscraper CLI")
 
+@app.command("sections")
+def sections():
+    for name in SECTION_URLS:
+        print(name)
 
 @app.command()
 def run(
