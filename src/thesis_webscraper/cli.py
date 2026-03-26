@@ -14,7 +14,7 @@ app = typer.Typer(add_completion=False, help="Thesis Webscraper CLI")
 
 @app.command()
 def run(
-    start_url: str = typer.Option(..., "--start-url", help="Listing page URL to begin crawling"),
+    section: str = typer.Option(..., "--section", help="Autohome section to scrape"),
     pages: int = typer.Option(1, "--pages", min=1, help="Number of list pages to crawl"),
     out: Path = typer.Option(Path("data/posts.csv"), "--out", help="Output file path"),
     headless: bool = typer.Option(True, "--headless/--no-headless", help="Run browser headless"),
@@ -27,7 +27,7 @@ def run(
     verbose: bool = typer.Option(False, "--verbose", "-v", help="Verbose logging"),
 ):
     cfg = ScrapeConfig(
-        start_url=start_url,
+        section=section,
         pages=pages,
         out=out,
         headless=headless,
