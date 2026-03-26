@@ -151,14 +151,36 @@ class ThesisWebscraper:
         )
 
 
-def scrape(query: str, limit: int, cfg: ScrapeConfig) -> list[Listing]:
-    """
-    Convenience function for orchestration layers (main.py).
-    """
+def scrape(cfg: ScrapeConfig) -> RunResult:
+    query = "example"   # replace with real query source from config
+    limit = cfg.max_pages or 100
+
     with ThesisWebscraper(cfg) as s:
         listings = s.search(query=query, limit=limit)
 
-        # If you want per-listing enrichment:
-        # listings = [s.enrich_listing(x) for x in listings]
+    posts = [
+        {
+            "url": item.url,
+            "title": item.title or "",
+            "price": item.price or "",
+            "location": item.location or "",
+        }
+        for item in listings
+    ]
 
-        return listings
+    comments: list[dict] = []
+
+    cfg.out_dir.mkdir(parents=True, exist_ok=True)
+    _write_csv(cfg.out_dir / "posts.csv", posts)
+    _write_csv(cfg.out_dir / "comments.csv", comments)
+
+    metadata = {
+        "base_url": cfg.base_url,
+        "out_dir": str(cfg.out_dir),
+    }
+    (cfg.out_dir / "run_metadata.json").write_text(
+        json.dumps(metadata, indent=2),
+        encoding="utf-8",
+    )
+
+    return RunResult(posts=posts, comments=comments, metadata=metadata)
