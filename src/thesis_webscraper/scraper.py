@@ -56,12 +56,12 @@ def scrape(cfg: ScrapeConfig) -> ScrapeResult:
 
     # For now, assume cfg.start_urls exists and contains thread URLs.
     with ThesisWebscraper(cfg) as scraper:
-        for url in cfg.start_urls:
-            try:
-                post, comments = scraper.scrape_thread(url)
-                result.posts.append(post)
-                result.comments.extend(comments)
-            except Exception as e:
-                result.errors.append(f"{url}: {e}")
+        thread_urls = scraper.collect_thread_urls(
+            start_url=cfg.start_url,
+            max_pages=cfg.pages,
+        )
+        
+        for url in thread_urls:
+            post, comments = scraper.scrape_thread(url)
 
     return result
