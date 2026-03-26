@@ -12,6 +12,10 @@ class RetryPolicy:
     max_delay_s: float = 30.0
     jitter: float = 0.25  # +-25% jitter
 
+def polite_sleep(delay_ms: int, jitter: float = 0.25) -> None:
+    delay_s = delay_ms / 1000
+    jitter_amount = delay_s * jitter * (random.random() * 2 - 1)
+    time.sleep(max(0.0, delay_s + jitter_amount))
 
 def sleep_backoff(attempt: int, policy: RetryPolicy) -> None:
     # exponential backoff: base * 2^(attempt-1)
