@@ -111,5 +111,3 @@ The project is organized into the following directories:
 └── pyproject.toml
 
 ```
-```
-
