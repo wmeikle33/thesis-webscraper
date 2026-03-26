@@ -9,7 +9,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from .config import ScrapeConfig
 from .parser import parse_post
 from .models import ScrapeResult
-from .collect_thread_urls import collect_thread_urls
 
 
 class ThesisWebscraper:
