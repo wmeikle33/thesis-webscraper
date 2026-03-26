@@ -6,6 +6,9 @@ from pathlib import Path
 
 import typer
 from rich import print
+from thesis_webscraper.config import SECTION_URLS
+app = typer.Typer(add_completion=False)
+from rich import print
 from thesis_webscraper.config import ScrapeConfig
 from thesis_webscraper.scraper import scrape
 
