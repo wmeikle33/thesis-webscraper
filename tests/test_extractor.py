@@ -9,7 +9,7 @@ def test_parse_list_basic(read_html):
 
 # tests/unit/test_rate_limit.py
 import time
-from src.thesis_webscraper.util import polite_sleep
+from thesis_webscraper.retry import polite_sleep
 
 def test_polite_sleep_jitter(monkeypatch):
     slept = []
