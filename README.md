@@ -103,6 +103,7 @@ The project is organized into the following directories:
 ├── docs/                # Additional project documentation
 ├── src/                 # Python package source code
 ├── tests/               # Automated tests and fixtures
+├── notebooks/    
 ├── Changelog.md
 ├── LICENSE
 ├── MIGRATING.md
