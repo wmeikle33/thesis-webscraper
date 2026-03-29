@@ -1,2 +1,2 @@
-with open() as h:
-  h.write
+df =
+assert df.isnull().values.any() == 0
