@@ -7,8 +7,6 @@ from pathlib import Path
 import typer
 from rich import print
 from thesis_webscraper.config import SECTION_URLS
-app = typer.Typer(add_completion=False)
-from rich import print
 from thesis_webscraper.config import ScrapeConfig
 from thesis_webscraper.scraper import scrape
 
@@ -23,7 +21,7 @@ def sections():
 def run(
     section: str = typer.Option(..., "--section", help="Autohome section to scrape"),
     pages: int = typer.Option(1, "--pages", min=1, help="Number of list pages to crawl"),
-    out_dir: Path = typer.Option(Path("data/posts.csv"), "--out-dir", help="Output file path"),
+    out_dir: Path = typer.Option(Path("data/"), "--out-dir", help="Output file path"),
     headless: bool = typer.Option(True, "--headless/--no-headless", help="Run browser headless"),
     delay_ms: int = typer.Option(1200, "--delay-ms", min=0, help="Base delay between requests in ms"),
     jitter: float = typer.Option(0.4, "--jitter", min=0.0, help="Random jitter multiplier"),
