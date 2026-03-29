@@ -33,6 +33,7 @@ cd Thesis-Webscraper
 python -m venv .venv
 source .venv/bin/activate  # Windows: .\.venv\Scripts\Activate.ps1
 pip install -e .
+pip install -e .[dev]
 thesis-webscraper --help
 
 ```
