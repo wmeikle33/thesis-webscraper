@@ -4,6 +4,24 @@
 
 This project scrapes text data from the Chinese website Autohome for thesis research. Collecting information by hand can be very time consuming. On the other hand, scraping data online provides a much faster alternative method of data collection. To this end, this project uses a web scraping methodology to collect text data before scanning it for specific key words. These key words are then incorporated in a Principal Component Regression Analysis vis a vis company stock returns to measure which text variables were positively correlated with company performance. It uses Selenium to load target pages, extracts structured post and comment text, normalizes the data into tabular form, and writes the results to local files for downstream analysis. The repository is organized as a small Python package with a CLI, tests, and documentation.
 
+```md
+## Scraping pipeline
+
+```mermaid
+flowchart TD
+    A[Input: list page URLs] --> B[Load dynamic pages with Selenium]
+    B --> C[Parse list pages]
+    C --> D[Collect thread/detail links]
+    D --> E[Scrape detail pages]
+    E --> F[Extract post-level data]
+    E --> G[Extract comment-level data]
+    F --> H[Normalize schema]
+    G --> H
+    H --> I[Deduplicate by IDs / keys]
+    I --> J[posts.csv]
+    I --> K[comments.csv]
+    I --> L[run_metadata.json]
+
 # Quickstart
 
 ### Prerequisites
