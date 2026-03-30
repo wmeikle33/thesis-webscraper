@@ -6,6 +6,11 @@ build-backend = "setuptools.build_meta"
 name = "thesis-webscraper"
 version = "0.1.0"
 requires-python = ">=3.10"
+description = "A Python scraping pipeline for collecting and structuring automobile forum discussion data for downstream analysis."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [
+  { name = "William Meikle" }
 dependencies = [
   "typer>=0.12",
   "rich>=13",
