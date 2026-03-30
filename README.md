@@ -4,20 +4,6 @@
 
 This project scrapes text data from the Chinese website Autohome for thesis research. Collecting information by hand can be very time consuming. On the other hand, scraping data online provides a much faster alternative method of data collection. To this end, this project uses a web scraping methodology to collect text data before scanning it for specific key words. These key words are then incorporated in a Principal Component Regression Analysis vis a vis company stock returns to measure which text variables were positively correlated with company performance. It uses Selenium to load target pages, extracts structured post and comment text, normalizes the data into tabular form, and writes the results to local files for downstream analysis. The repository is organized as a small Python package with a CLI, tests, and documentation.
 
-## How it works
-
-1. **List page parsing**  
-   The scraper opens forum or listing pages and collects candidate post URLs.
-
-2. **Detail page parsing**  
-   Each post page is loaded in Selenium, and the scraper extracts post-level fields and any visible comments.
-
-3. **Deduplication and normalization**  
-   Records are normalized into a stable schema, keyed by post and comment identifiers to reduce duplicate rows.
-
-4. **Output writing**  
-   Structured records are written to CSV, and run metadata is saved for traceability and reproducibility.
-
 # Quickstart
 
 ### Prerequisites
@@ -53,6 +39,20 @@ thesis-webscraper run \
   --verbose
 
 ```
+
+## How it works
+
+1. **List page parsing**  
+   The scraper opens forum or listing pages and collects candidate post URLs.
+
+2. **Detail page parsing**  
+   Each post page is loaded in Selenium, and the scraper extracts post-level fields and any visible comments.
+
+3. **Deduplication and normalization**  
+   Records are normalized into a stable schema, keyed by post and comment identifiers to reduce duplicate rows.
+
+4. **Output writing**  
+   Structured records are written to CSV, and run metadata is saved for traceability and reproducibility.\
 
 ## What it outputs
 
