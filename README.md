@@ -13,6 +13,13 @@ This project scrapes text data from the Chinese website Autohome for thesis rese
 For full instructions on how to run the scraper, configuration options, and examples, see:
 ➡️ [Usage Guide](USAGE.md)
 
+## Configuration
+
+Copy `.env.example` to `.env` and update values as needed:
+
+```bash
+cp .env.example .env
+
 ### Install
 ```bash
 git clone https://github.com/wmeikle33/Thesis-Webscraper.git
