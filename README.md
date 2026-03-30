@@ -22,6 +22,8 @@ flowchart TD
     I --> K[comments.csv]
     I --> L[run_metadata.json]
 
+```
+
 # Quickstart
 
 ### Prerequisites
