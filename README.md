@@ -114,3 +114,14 @@ The project is organized into the following directories:
 └── pyproject.toml
 
 ```
+## Quality checks
+
+GitHub Actions CI runs on pushes to `main` and pull requests and currently covers:
+
+- Ruff linting (`ruff check .`)
+- Ruff formatting check (`ruff format --check .`)
+- Unit tests with `pytest`
+- Package build validation (`python -m build`)
+- Package metadata validation (`python -m twine check dist/*`)
+
+The workflow runs on Python 3.10, 3.11, and 3.12.
