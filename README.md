@@ -2,7 +2,7 @@
 
 ## What this project does
 
-This project scrapes discussion data from the Chinese website Autohome for thesis research. Collecting information by hand can be very time consuming. On the other hand, scraping data online provides a much faster alternative method of data collection. It uses Selenium to load target pages, extracts structured post and comment text, normalizes the data into tabular form, and writes the results to local files for downstream analysis. The repository is organized as a small Python package with a CLI, tests, and documentation.
+This project scrapes text data from the Chinese website Autohome for thesis research. Collecting information by hand can be very time consuming. On the other hand, scraping data online provides a much faster alternative method of data collection. To this end, this project uses a web scraping methodology to collect text data before scanning it for specific key words. It uses Selenium to load target pages, extracts structured post and comment text, normalizes the data into tabular form, and writes the results to local files for downstream analysis. The repository is organized as a small Python package with a CLI, tests, and documentation.
 
 ## How it works
 
